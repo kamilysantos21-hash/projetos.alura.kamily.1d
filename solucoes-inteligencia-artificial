@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipagem de Solução com IA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>SmartIdeias IA</h1>
+        <p>Mapeando ideias e prototipando soluções inteligentes</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>1. Mapeamento do Problema</h2>
+            <p>Identificamos a necessidade de otimizar a criação e validação de ideias de projetos usando modelos de linguagem generativos.</p>
+        </section>
+
+        <section class="card">
+            <h2>2. Protótipo Interativo</h2>
+            <p>Digite uma ideia de projeto abaixo para receber um mapeamento de execução gerado por IA:</p>
+            
+            <div class="input-group">
+                <input type="text" id="prompt-input" placeholder="Ex: App de doação de alimentos..." />
+                <button id="btn-gerar">Mapear com IA</button>
+            </div>
+
+            <div id="resultado" class="resultado-box hidden">
+                <h3>Plano da Solução:</h3>
+                <p id="resposta-ia"></p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0f172a;
+    color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background-color: #1e293b;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+    font-size: 1.4rem;
+    color: #38bdf8;
+    margin-bottom: 12px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #475569;
+    background-color: #0f172a;
+    color: #fff;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: #38bdf8;
+}
+
+button {
+    background-color: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0284c7;
+    color: #fff;
+}
+
+.resultado-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #0f172a;
+    border-left: 4px solid #38bdf8;
+    border-radius: 4px;
+}
+
+.hidden {
+    display: none;
+}const btnGerar = document.getElementById('btn-gerar');
+const inputPrompt = document.getElementById('prompt-input');
+const caixaResultado = document.getElementById('resultado');
+const respostaIa = document.getElementById('resposta-ia');
+
+btnGerar.addEventListener('click', async () => {
+    const ideia = inputPrompt.value.trim();
+
+    if (!ideia) {
+        alert('Por favor, digite uma ideia!');
+        return;
+    }
+
+    respostaIa.textContent = "Processando e mapeando sua ideia...";
+    caixaResultado.classList.remove('hidden');
+
+    try {
+        // Simulação de chamada de API/Prototipagem de lógica de IA
+        setTimeout(() => {
+            respostaIa.innerHTML = `
+                <strong>Ideia analisada:</strong> "${ideia}"<br><br>
+                <strong>1. Público-Alvo:</strong> Usuários interessados em tecnologia e praticidade.<br>
+                <strong>2. Funcionalidade Principal:</strong> Automação com modelo de linguagem natural.<br>
+                <strong>3. Próximo Passo:</strong> Criar wireframe e conectar com a API do Gemini.
+            `;
+        }, 1500);
+    } catch (erro) {
+        respostaIa.textContent = "Erro ao processar a resposta da IA.";
+    }
+});
