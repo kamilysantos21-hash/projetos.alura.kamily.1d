@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Em Busca da Cidade Perdida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <div class="caixa-principal">
+            <h1>Em Busca da Cidade Perdida</h1>
+            <div class="caixa-perguntas"></div>
+            <div class="caixa-alternativas"></div>
+            <div class="caixa-resultado">
+                <p class="texto-resultado"></p>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1d212b;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.caixa-principal {
+    background-color: #2b303c;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #4da6ff;
+}
+
+.caixa-perguntas {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.caixa-alternativas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+button {
+    background-color: #4da6ff;
+    color: #1d212b;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #80bfc;
+}
+
+.texto-resultado {
+    font-size: 1.2rem;
+    color: #80ff80;
+    margin-top: 15px;
+}const caixaPerguntas = document.querySelector(".caixa-perguntas");
+const caixaAlternativas = document.querySelector(".caixa-alternativas");
+const caixaResultado = document.querySelector(".caixa-resultado");
+const textoResultado = document.querySelector(".texto-resultado");
+
+const passos = [
+    {
+        texto: "Um dia, você encontra um mapa antigo no sótão da sua casa que indica o caminho para uma cidade perdida cheia de tesouros. O que você faz?",
+        alternativas: [
+            {
+                texto: "Seguir pelo caminho da floresta densa.",
+                afirmacao: "Você decidiu explorar a floresta densa e encontrou um rio misterioso."
+            },
+            {
+                texto: "Atravessar as montanhas rochosas.",
+                afirmacao: "Você escolheu o caminho das montanhas e enfrentou ventos fortes."
+            }
+        ]
+    },
+    {
+        texto: "Durante a jornada, você encontra uma bifurcação com uma inscrição antiga na pedra. Para onde vai?",
+        alternativas: [
+            {
+                texto: "Entrar na caverna iluminada por cristais.",
+                afirmacao: "Na caverna, você descobriu pistas sobre a entrada da cidade."
+            },
+            {
+                texto: "Seguir pela ponte de madeira suspensa.",
+                afirmacao: "Ao cruzar a ponte, você encontrou ruínas antigas protegidas."
+            }
+        ]
+    },
+    {
+        texto: "Você finalmente chega aos portões da cidade perdida! Há um enigma final gravado no portão. Como deseja abri-lo?",
+        alternativas: [
+            {
+                texto: "Usar o símbolo do mapa que você encontrou no início.",
+                afirmacao: "A chave do mapa funcionou perfeitamente e os portões se abriram!"
+            },
+            {
+                texto: "Tentar resolver o enigma lógico gravado na pedra.",
+                afirmacao: "Sua inteligência permitiu desvendar o segredo do portão!"
+            }
+        ]
+    }
+];
+
+let atual = 0;
+let historiaFinal = "";
+
+function mostraPasso() {
+    if (atual >= passos.length) {
+        mostraResultado();
+        return;
+    }
+    const passoAtual = passos[atual];
+    caixaPerguntas.textContent = passoAtual.texto;
+    caixaAlternativas.textContent = "";
+    
+    for (const alternativa of passoAtual.alternativas) {
+        const botaoAlternativa = document.createElement("button");
+        botaoAlternativa.textContent = alternativa.texto;
+        botaoAlternativa.addEventListener("click", () => respostaSelecionada(alternativa));
+        caixaAlternativas.appendChild(botaoAlternativa);
+    }
+}
+
+function respostaSelecionada(opcao) {
+    historiaFinal += opcao.afirmacao + " ";
+    atual++;
+    mostraPasso();
+}
+
+function mostraResultado() {
+    caixaPerguntas.textContent = "Sua Jornada Concluída:";
+    caixaAlternativas.textContent = "";
+    textoResultado.textContent = historiaFinal + "Parabéns, você completou a aventura com sucesso!";
+}
+
+mostraPasso();
